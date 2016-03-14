@@ -52,7 +52,7 @@ static int _sx_ssl_verify_callback(int preverify_ok, X509_STORE_CTX *ctx)
      * Ignore errors when we can't get CRLs in the certificate
      */
     if (!preverify_ok && err == X509_V_ERR_UNABLE_TO_GET_CRL) {
-        LOG_DEBUG(log, "ignoring verify error:num=%d:%s:depth=%d:%s\n", err,
+        LOG_DEBUG(log, "ignoring verify error:num=%d:%s:depth=%d:%s", err,
                          X509_verify_cert_error_string(err), depth, buf);
         preverify_ok = 1;
     }
@@ -64,7 +64,7 @@ static int _sx_ssl_verify_callback(int preverify_ok, X509_STORE_CTX *ctx)
     X509_NAME_oneline(X509_get_subject_name(err_cert), buf, 256);
 
     if (!preverify_ok) {
-        LOG_DEBUG(log, "verify error:num=%d:%s:depth=%d:%s\n", err,
+        LOG_DEBUG(log, "verify error:num=%d:%s:depth=%d:%s", err,
                  X509_verify_cert_error_string(err), depth, buf);
     }
     else
@@ -79,7 +79,7 @@ static int _sx_ssl_verify_callback(int preverify_ok, X509_STORE_CTX *ctx)
     if (!preverify_ok && (err == X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT))
     {
       X509_NAME_oneline(X509_get_issuer_name(ctx->current_cert), buf, 256);
-      LOG_DEBUG(log, "issuer= %s\n", buf);
+      LOG_DEBUG(log, "issuer= %s", buf);
     }
 
     return preverify_ok;
